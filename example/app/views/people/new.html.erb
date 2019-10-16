@@ -1,0 +1,24 @@
+<h1>Add a new person</h1>
+
+<% if @person.errors.any? %>
+  <div class="alert alert-danger" role="alert">
+    <ul class="m-0">
+      <% @person.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div class="row">
+  <div class="col-3">
+    <%= form_for(@person) do |f| %>
+    <div class="form-group">
+      Firstname: <%= f.text_field :firstname, required: true, class: "form-control" %><br />
+      Lastname : <%= f.text_field :lastname, required: true, class: "form-control" %><br />
+      Email: <%= f.text_field :email, required: true, class: "form-control" %><br />
+    </div>
+    <%= f.submit class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
