@@ -1,0 +1,44 @@
+version: '3'
+services:
+  database:
+    image: postgres:9.6
+    restart: always
+    environment:
+      POSTGRES_PASSWORD:  $db_pass
+      POSTGRES_USER:      $db_user
+    volumes:
+      - db:/var/lib/postgresql/data
+  web:
+    build: .
+    restart: always
+    environment:
+      - db_user=$db_user
+      - db_pass=$db_pass
+    volumes:
+      - /home/lulak/Documents/example/example:/root
+    depends_on:
+      - database
+    ports:
+      - 3000:3000
+
+  elasticsearch:
+    image: elasticsearch:6.8.3
+    restart: always
+    depends_on:
+      - database
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
+
+  kibana:
+    image: kibana:6.8.3
+    restart: unless-stopped
+    depends_on:
+      - elasticsearch
+    ports:
+    - 5601:5601
+
+
+volumes:
+  db:
