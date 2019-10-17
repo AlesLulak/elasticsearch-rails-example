@@ -27,7 +27,9 @@
           <%= person.email %>
         </td>
         <td>
-          <% unless person.excluded %>
+          <% if person.excluded %>
+            <%= link_to  "Add to search", person_path(person.id), method: :patch, data: { confirm: "Are you sure?" }, class: "btn btn-success"  %>
+          <% else %>
             <%= link_to  "Remove from search", person_path(person.id), method: :patch, data: { confirm: "Are you sure?" }, class: "btn btn-danger"  %>
           <% end %>
         </td>

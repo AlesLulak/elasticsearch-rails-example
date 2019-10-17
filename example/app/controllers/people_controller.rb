@@ -21,7 +21,7 @@ class PeopleController < ApplicationController
 
   def update
     @person = Person.find(params[:id])
-    @person.excluded = true
+    @person.excluded = !@person.excluded
     respond_to do |format|
       if @person.save
         format.html { redirect_to people_path, notice: "Person was excluded." }
