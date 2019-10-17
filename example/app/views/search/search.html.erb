@@ -1,0 +1,23 @@
+<h1>Search</h1>
+<div class="row">
+  <div class="col-4">
+    <%= link_to "List", people_path, class: "btn btn-sm btn-warning mb-2" %>
+    <%= form_for search_path, method: :get do |f| %>
+      <div class="form-group">
+          <%= text_field_tag :q, params[:q], class: "form-control mb-2" %>
+          <%= submit_tag "search", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<ul>
+  <% @persons.each do |person| %>
+    <li>
+      <h5>
+        <%= person.firstname %> <%= person.lastname %>
+      </h5>
+      <p><%= person.email %></p>
+    </li>
+  <% end %>
+</ul>
