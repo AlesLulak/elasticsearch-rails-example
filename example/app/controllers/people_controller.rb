@@ -1,6 +1,6 @@
 class PeopleController < ApplicationController
   def index
-    @persons = Person.all
+    @persons = Person.order(:firstname)
   end
 
   def new
