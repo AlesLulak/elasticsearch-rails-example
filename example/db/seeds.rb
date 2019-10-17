@@ -12,6 +12,7 @@
   Person.create(
     firstname: name,
     lastname: last,
+    excluded: false,
     email: Faker::Internet.email(name: "#{name} #{last}", separators: "."),
   )
 end
