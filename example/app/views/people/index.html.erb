@@ -11,11 +11,12 @@
       <th scope="col">Firstname</th>
       <th scope="col">Lastname</th>
       <th scope="col">Email</th>
+      <th scope="col">Action</th>
     </tr>
   </thead>
   <tbody>
     <% @persons.each do |person| -%>
-      <tr>
+      <tr class="<%= 'table-danger' if person.excluded %>">
         <td>
           <%= person.firstname %>
         </td>
@@ -25,10 +26,12 @@
         <td>
           <%= person.email %>
         </td>
+        <td>
+          <% unless person.excluded %>
+            <%= link_to  "Remove from search", person_path(person.id), method: :patch, data: { confirm: "Are you sure?" }, class: "btn btn-danger"  %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<div>
-</div>

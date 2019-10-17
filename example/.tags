@@ -1,0 +1,1 @@
+Person	/home/lulak/Documents/example/example/app/models/person.rb	/^class Person < ActiveRecord::Base$/;"	class	line:1
