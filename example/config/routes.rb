@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  root "people#index"
+  root "persons#index"
 
-  resources :people, only: %i[index new create update]
+  resources :persons
 
   get "search", to: "search#search"
 end

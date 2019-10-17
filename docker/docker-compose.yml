@@ -11,6 +11,8 @@ services:
   web:
     build: .
     restart: always
+    stdin_open: true
+    tty: true
     environment:
       - db_user=$db_user
       - db_pass=$db_pass
@@ -30,6 +32,8 @@ services:
       nofile:
         soft: 65536
         hard: 65536
+    ports:
+    - 9200:9200
 
   kibana:
     image: kibana:6.8.3

@@ -1,4 +1,4 @@
-class PeopleController < ApplicationController
+class PersonsController < ApplicationController
   def index
     @persons = Person.order(:firstname)
   end
@@ -12,7 +12,7 @@ class PeopleController < ApplicationController
 
     respond_to do |format|
       if @person.save
-        format.html { redirect_to people_path, notice: "Person was successfully added." }
+        format.html { redirect_to persons_path, notice: "Person was successfully added." }
       else
         format.html { render :new }
       end
@@ -22,11 +22,20 @@ class PeopleController < ApplicationController
   def update
     @person = Person.find(params[:id])
     @person.excluded = !@person.excluded
+
     respond_to do |format|
       if @person.save
-        format.html { redirect_to people_path, notice: "Person was excluded." }
+        format.html { redirect_to persons_path, notice: @person.excluded ? "#{@person.firstname} was excluded." : "#{@person.firstname} was included." }
       end
     end
+  end
+
+  def show
+    @person = Person.find(params[:id])
+  end
+
+  def edit
+    @person = Person.find(params[:id])
   end
 
   private
