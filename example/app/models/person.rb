@@ -6,8 +6,6 @@ class Person < ActiveRecord::Base
   include Elasticsearch::Model
   include Elasticsearch::Model::Callbacks
 
-  # self.__elasticsearch__.index_name = "person"
-
   settings "analysis": {
     "analyzer": {
       "person_analyzer": {

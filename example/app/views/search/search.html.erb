@@ -1,23 +1,49 @@
 <h1>Search</h1>
+<%= link_to "List", persons_path, class: "btn btn-warning mb-2" %>
 <div class="row">
-  <div class="col-4">
-    <%= link_to "List", persons_path, class: "btn btn-warning mb-2" %>
+  <div class="col-5 ml-auto mr-auto">
     <%= form_for search_path, method: :get do |f| %>
-      <div class="form-group">
-          <%= text_field_tag :q, params[:q], class: "form-control mb-2" %>
-          <%= submit_tag "Search", class: "btn btn-primary" %>
+    <div class="row">
+      <div class="col-10">
+        <div class="form-group ">
+          <%= text_field_tag :q, params[:q], class: "form-control mb-2", id: "search", autocomplete: "off" %>
+          <div id="results">
+            <ul class="list-group"></ul>
+          </div>
+        </div>
       </div>
+      <div class="col-2">
+        <%= submit_tag "Search", class: "btn btn-primary d-inline-block" %>
+      </div>
+    </div>
     <% end %>
   </div>
 </div>
 
-<ul>
+<ul class="list-group">
   <% @persons.each do |person| %>
-    <li>
-      <h5>
-        <%= person.firstname %> <%= person.lastname %>
-      </h5>
-      <p><%= person.email %></p>
-    </li>
+  <li class="list-group-item list-group-item-action">
+    <h5>
+      <%= person.firstname %> <%= person.lastname %>
+    </h5>
+    <p><%= person.email %></p>
+  </li>
   <% end %>
 </ul>
+
+<script>
+  $("#search").on('input', function () {
+    $.ajax({
+      url: "/search.json?q=" + $("#search").val(),
+      success: function (r) {
+        $("#results ul").empty();
+        r.forEach(e => {
+          $("#results ul").append(`<li class="list-group-item list-group-item-action list-group-item-secondary"> ${e.firstname} ${e.lastname} </li>`)
+        });
+      },
+      error: function (e) {
+        console.log(e);
+      }
+    });
+  });
+</script>

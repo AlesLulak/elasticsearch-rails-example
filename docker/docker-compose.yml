@@ -32,8 +32,10 @@ services:
       nofile:
         soft: 65536
         hard: 65536
+    volumes:
+      - esdata01:/usr/share/elasticsearch/data
     ports:
-    - 9200:9200
+      - 9200:9200
 
   kibana:
     image: kibana:6.8.3
@@ -46,3 +48,4 @@ services:
 
 volumes:
   db:
+  esdata01:

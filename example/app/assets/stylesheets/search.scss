@@ -1,3 +1,18 @@
 // Place all the styles related to the search controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#search:focus + div {
+  display: block;
+}
+#results {
+  z-index: 999;
+  display: none;
+  position: absolute;
+  width: calc(100% - 30px);
+
+  ul {
+    padding: 0;
+    margin: 0;
+  }
+}
