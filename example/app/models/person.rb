@@ -7,11 +7,18 @@ class Person < ActiveRecord::Base
   include Elasticsearch::Model::Callbacks
 
   settings "analysis": {
+    "filter": {
+      "autocomplete_filter": {
+        "type": "edge_ngram",
+        "min_gram": 3,
+        "max_gram": 10,
+      },
+    },
     "analyzer": {
       "person_analyzer": {
         "type": "custom",
         "tokenizer": "standard",
-        "filter": ["asciifolding", "lowercase"],
+        "filter": ["asciifolding", "lowercase", "autocomplete_filter"],
       },
     },
   }
@@ -33,19 +40,9 @@ class Person < ActiveRecord::Base
               end
             end
             json.child! do
-              json.bool do
-                json.should {
-                  json.child! do
-                    json.match do
-                      json.firstname { json.query q }
-                    end
-                  end
-                  json.child! do
-                    json.match do
-                      json.lastname { json.query q }
-                    end
-                  end
-                }
+              json.multi_match do
+                json.query q
+                json.fields ["firstname", "lastname"]
               end
             end
           end
@@ -53,10 +50,11 @@ class Person < ActiveRecord::Base
       end
     end
 
-    # byebug
+    # i can do two queries, one for exact match and one for ngram
 
+    # byebug
     result = Person.search(query)
-    Person.where(id: result.results.map(&:_id)).order("firstname ASC")
+    Person.where(id: result.results.map(&:_id)).limit(5).order("firstname ASC")
   end
 
   def as_indexed_json(options = nil)

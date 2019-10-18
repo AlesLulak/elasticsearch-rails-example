@@ -13,4 +13,6 @@
 /tmp
 
 .bash_history
+.byebug_history
+
 .tags*
