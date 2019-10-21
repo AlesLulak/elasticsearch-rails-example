@@ -18,37 +18,45 @@ class Person < ActiveRecord::Base
       "person_analyzer": {
         "type": "custom",
         "tokenizer": "standard",
+        "filter": ["asciifolding", "lowercase"],
+      },
+      "ngram_analyzer": {
+        "type": "custom",
+        "tokenizer": "standard",
         "filter": ["asciifolding", "lowercase", "autocomplete_filter"],
       },
     },
   }
 
   mapping do
-    indexes :firstname, type: "text", analyzer: "person_analyzer"
-    indexes :lastname, type: "text", analyzer: "person_analyzer"
+    indexes :firstname, type: "text", analyzer: "ngram_analyzer", search_analyzer: "person_analyzer"
+    indexes :lastname, type: "text", analyzer: "ngram_analyzer", search_analyzer: "person_analyzer"
     indexes :excluded, type: "boolean"
   end
 
   def self.find_by_fulltext(q)
-    query = Jbuilder.encode do |json|
-      json.query do
-        json.bool do
-          json.must do
-            json.child! do
-              json.term do
-                json.excluded false
-              end
-            end
-            json.child! do
-              json.multi_match do
-                json.query q
-                json.fields ["firstname", "lastname"]
-              end
-            end
-          end
-        end
-      end
-    end
+    query = {
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "excluded": false,
+              },
+            },
+            {
+              "multi_match": {
+                "query": q,
+                "fields": [
+                  "firstname",
+                  "lastname",
+                ],
+              },
+            },
+          ],
+        },
+      },
+    }.as_json
 
     # i can do two queries, one for exact match and one for ngram
 
