@@ -1,6 +1,6 @@
 <h1>Add a new person</h1>
 
-<%= link_to "List", persons_path, class: "btn btn-sm btn-warning mb-2" %>
+<%= link_to "List", persons_path, class: "btn btn-warning mb-2" %>
 
 <% if @person.errors.any? %>
   <div class="alert alert-danger" role="alert">
@@ -14,13 +14,6 @@
 
 <div class="row">
   <div class="col-3">
-    <%= form_for(@person) do |f| %>
-    <div class="form-group">
-      Firstname: <%= f.text_field :firstname, required: true, class: "form-control" %><br />
-      Lastname : <%= f.text_field :lastname, required: true, class: "form-control" %><br />
-      Email: <%= f.text_field :email, required: true, class: "form-control" %><br />
-    </div>
-    <%= f.submit class: "btn btn-primary" %>
-    <% end %>
+    <%= render partial: "form" %>
   </div>
 </div>

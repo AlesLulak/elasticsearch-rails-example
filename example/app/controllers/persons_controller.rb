@@ -21,6 +21,16 @@ class PersonsController < ApplicationController
 
   def update
     @person = Person.find(params[:id])
+
+    respond_to do |format|
+      if @person.update(person_params)
+        format.html { redirect_to persons_path, notice: @person.excluded ? "#{@person.firstname} was excluded." : "#{@person.firstname} was included." }
+      end
+    end
+  end
+
+  def archive
+    @person = Person.find(params[:id])
     @person.excluded = !@person.excluded
 
     respond_to do |format|

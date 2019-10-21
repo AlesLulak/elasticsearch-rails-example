@@ -12,7 +12,7 @@
       <th scope="col">Firstname</th>
       <th scope="col">Lastname</th>
       <th scope="col">Email</th>
-      <th scope="col">Action</th>
+      <th scope="col">Actions</th>
     </tr>
   </thead>
   <tbody>
@@ -28,10 +28,11 @@
           <%= person.email %>
         </td>
         <td>
+          <!--a href="<%= edit_person_path(person) %>" class="btn btn-success">Edit</a -->
           <% if person.excluded %>
-            <%= link_to  "Add to search", person_path(person.id), method: :patch, data: { confirm: "Are you sure?" }, class: "btn btn-success"  %>
+            <%= link_to  "Add to search", archive_person_path(person.id), method: :patch, data: { confirm: "Are you sure?" }, class: "btn btn-success"  %>
           <% else %>
-            <%= link_to  "Remove from search", person_path(person.id), method: :patch, data: { confirm: "Are you sure?" }, class: "btn btn-danger"  %>
+            <%= link_to  "Remove from search", archive_person_path(person.id), method: :patch, data: { confirm: "Are you sure?" }, class: "btn btn-danger"  %>
           <% end %>
         </td>
       </tr>

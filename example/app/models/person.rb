@@ -10,7 +10,7 @@ class Person < ActiveRecord::Base
     "filter": {
       "autocomplete_filter": {
         "type": "edge_ngram",
-        "min_gram": 3,
+        "min_gram": 1,
         "max_gram": 10,
       },
     },
