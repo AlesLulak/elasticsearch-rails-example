@@ -29,6 +29,17 @@ class PersonsController < ApplicationController
     end
   end
 
+  def show
+    @person = Person.find(params[:id])
+  end
+
+  def edit
+    @person = Person.find(params[:id])
+  end
+
+  # Custom actions
+
+  # Include/exclude person from search list
   def archive
     @person = Person.find(params[:id])
     @person.excluded = !@person.excluded
@@ -38,14 +49,6 @@ class PersonsController < ApplicationController
         format.html { redirect_to persons_path, notice: @person.excluded ? "#{@person.firstname} was excluded." : "#{@person.firstname} was included." }
       end
     end
-  end
-
-  def show
-    @person = Person.find(params[:id])
-  end
-
-  def edit
-    @person = Person.find(params[:id])
   end
 
   private
