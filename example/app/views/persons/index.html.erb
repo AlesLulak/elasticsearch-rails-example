@@ -28,7 +28,7 @@
           <%= person.email %>
         </td>
         <td>
-          <!--a href="<%= edit_person_path(person) %>" class="btn btn-success">Edit</a -->
+          <a href="<%= edit_person_path(person) %>" class="btn btn-success">Edit</a>
           <% if person.excluded %>
             <%= link_to  "Add to search", archive_person_path(person.id), method: :patch, data: { confirm: "Are you sure?" }, class: "btn btn-success"  %>
           <% else %>
