@@ -58,9 +58,6 @@ class Person < ActiveRecord::Base
       },
     }.as_json
 
-    # i can do two queries, one for exact match and one for ngram
-
-    # byebug
     result = Person.search(query)
     Person.where(id: result.results.map(&:_id)).limit(5).order("firstname ASC")
   end
