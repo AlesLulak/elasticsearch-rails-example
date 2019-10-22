@@ -1,10 +1,8 @@
 Rails.application.routes.draw do
   root "persons#index"
 
-  resources :persons, except: %i[show] do
+  resources :persons, except: :show, path: "" do
     patch "archive", on: :member
-    # post "add_email", on: :member
-
     resources :emails
   end
 
