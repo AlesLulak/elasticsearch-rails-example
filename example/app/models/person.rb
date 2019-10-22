@@ -1,10 +1,13 @@
 require "elasticsearch/model"
 
 class Person < ActiveRecord::Base
-  validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
-
   include Elasticsearch::Model
   include Elasticsearch::Model::Callbacks
+
+  has_many :emails, dependent: :destroy
+
+  validates :firstname, presence: true
+  validates :lastname, presence: true
 
   settings "analysis": {
     "filter": {
@@ -28,10 +31,14 @@ class Person < ActiveRecord::Base
     },
   }
 
-  mapping do
+  mappings do
     indexes :firstname, type: "text", analyzer: "ngram_analyzer", search_analyzer: "person_analyzer"
     indexes :lastname, type: "text", analyzer: "ngram_analyzer", search_analyzer: "person_analyzer"
     indexes :excluded, type: "boolean"
+
+    indexes :emails, type: :object do # !! important
+      indexes :email, type: "text", analyzer: "ngram_analyzer", search_analyzer: "person_analyzer"
+    end
   end
 
   def self.find_by_fulltext(q)
@@ -50,6 +57,7 @@ class Person < ActiveRecord::Base
                 "fields": [
                   "firstname",
                   "lastname",
+                  "emails.email",
                 ],
               },
             },
@@ -63,6 +71,11 @@ class Person < ActiveRecord::Base
   end
 
   def as_indexed_json(options = nil)
-    self.as_json(only: [:firstname, :lastname, :excluded])
+    self.as_json(
+      only: [:firstname, :lastname, :excluded, :emails],
+      include: {
+        emails: { only: :email },
+      },
+    )
   end
 end

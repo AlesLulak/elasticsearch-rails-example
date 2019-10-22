@@ -24,7 +24,7 @@ class PersonsController < ApplicationController
 
     respond_to do |format|
       if @person.update(person_params)
-        format.html { redirect_to persons_path, notice: @person.excluded ? "#{@person.firstname} was excluded." : "#{@person.firstname} was included." }
+        format.html { redirect_to persons_path, notice: "#{@person.firstname} was updated." }
       end
     end
   end
@@ -35,6 +35,7 @@ class PersonsController < ApplicationController
 
   def edit
     @person = Person.find(params[:id])
+    @email = @person.emails.new
   end
 
   # Custom actions
@@ -54,6 +55,6 @@ class PersonsController < ApplicationController
   private
 
   def person_params
-    params.require(:person).permit(:firstname, :lastname, :email)
+    params.require(:person).permit(:firstname, :lastname)
   end
 end

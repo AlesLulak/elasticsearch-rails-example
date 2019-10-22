@@ -1,17 +1,12 @@
-<% if notice %>
-  <div class="alert alert-success mt-2" role="alert">
-    <%= notice %>
-  </div>
-<% end %>
 <h1 class="mt-2">List of poeple</h1>
 <%= link_to 'Add a new person', new_person_path, class: "btn btn-primary" %>
 <%= link_to 'Search', search_path, class: "btn btn-warning" %>
-<table class="table mt-2">
+<table class="table table-sm table-hover mt-2">
   <thead>
     <tr>
       <th scope="col">Firstname</th>
       <th scope="col">Lastname</th>
-      <th scope="col">Email</th>
+      <th scope="col">Emails</th>
       <th scope="col">Actions</th>
     </tr>
   </thead>
@@ -25,15 +20,19 @@
           <%= person.lastname %>
         </td>
         <td>
-          <%= person.email %>
+          <% person.emails.each do |e| %>
+              <%= e.email %> <br /> 
+          <% end %>
         </td>
         <td>
-          <a href="<%= edit_person_path(person) %>" class="btn btn-success">Edit</a>
-          <% if person.excluded %>
-            <%= link_to  "Add to search", archive_person_path(person.id), method: :patch, data: { confirm: "Are you sure?" }, class: "btn btn-success"  %>
-          <% else %>
-            <%= link_to  "Remove from search", archive_person_path(person.id), method: :patch, data: { confirm: "Are you sure?" }, class: "btn btn-danger"  %>
-          <% end %>
+          <div class="actions">
+            <a href="<%= edit_person_path(person) %>" class="btn btn-success">Edit</a>
+            <% if person.excluded %>
+              <%= link_to  "Add to search", archive_person_path(person.id), method: :patch, data: { confirm: "Are you sure?" }, class: "btn btn-success"  %>
+            <% else %>
+              <%= link_to  "Remove from search", archive_person_path(person.id), method: :patch, data: { confirm: "Are you sure?" }, class: "btn btn-danger"  %>
+            <% end %>
+          </div>
         </td>
       </tr>
     <% end %>

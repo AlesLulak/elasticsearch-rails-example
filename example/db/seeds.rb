@@ -9,10 +9,13 @@
 100.times do
   name = Faker::Name.first_name
   last = Faker::Name.last_name
-  Person.create(
+  person = Person.create(
     firstname: name,
     lastname: last,
     excluded: false,
-    email: Faker::Internet.email(name: "#{name} #{last}", separators: "."),
   )
+
+  3.times do
+    person.emails.create(email: Faker::Internet.email(name: "#{name} #{last}", separators: "."))
+  end
 end
