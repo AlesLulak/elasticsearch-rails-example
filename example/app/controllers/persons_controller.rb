@@ -38,6 +38,15 @@ class PersonsController < ApplicationController
     @email = @person.emails.new
   end
 
+  def destroy
+    @person = Person.find(params[:id])
+    respond_to do |format|
+      if @person.destroy
+        format.html { redirect_to persons_path, notice: "#{@person.firstname} was deleted." }
+      end
+    end
+  end
+
   # Custom actions
 
   # Include/exclude person from search list
