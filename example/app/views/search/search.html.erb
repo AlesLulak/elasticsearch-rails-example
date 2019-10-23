@@ -9,9 +9,11 @@
       <div class="col-10">
         <div class="form-group ">
           <%= text_field_tag :q, params[:q], class: "form-control mb-2", id: "search", autocomplete: "off", placeholder: "Search for names or emails..." %>
-          <div id="results">
-            <ul class="list-group"></ul>
-          </div>
+          <!-- Autocomplete -->
+            <div id="results">
+              <ul class="list-group"></ul>
+            </div>
+          <!-- end -->
         </div>
       </div>
       <div class="col-2">

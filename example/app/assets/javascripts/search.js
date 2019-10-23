@@ -20,4 +20,7 @@ $(function() {
     }, delay);
     
   });
+
+  console.log('Autocompleate loaded');
+  
 });

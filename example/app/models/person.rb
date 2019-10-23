@@ -70,12 +70,17 @@ class Person < ActiveRecord::Base
     Person.where(id: result.results.map(&:_id)).limit(5).order("firstname ASC")
   end
 
-  def as_indexed_json(options = nil)
-    self.as_json(
+  # Set separately to call also for json
+  def self.index_json
+    {
       only: [:firstname, :lastname, :excluded, :emails],
       include: {
         emails: { only: :email },
       },
-    )
+    }
+  end
+
+  def as_indexed_json(options = nil)
+    self.as_json(Person.index_json)
   end
 end
