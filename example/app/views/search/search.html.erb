@@ -25,15 +25,9 @@
 </div>
 
 <ul class="list-group">
-  <% @persons.each do |person| %>
   <li class="list-group-item list-group-item-action">
-    <h5>
-      <%= person.firstname %> <%= person.lastname %> <br /> 
-        <% person.emails.each do |e| %>
-          <small><%= e.email %></small> <br /> 
-        <% end %>
-    </h5>
-    <a href="<%= edit_person_path(person) %>" class="btn btn-success">Edit</a>
+    <pre>
+      <%= @results %>
+    </pre>
   </li>
-  <% end %>
 </ul>
