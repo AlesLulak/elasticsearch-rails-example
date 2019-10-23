@@ -3,26 +3,39 @@ class SearchController < ApplicationController
     def custom_query(q)
       query = {
         "query": {
-          # "bool": {
-          #   "must": [
-          #     {
-          #       "term": {
-          #         "excluded": false,
-          #       },
-          #     },
-          #     {
-          "multi_match": {
-            "query": q,
-            "fields": [
-              "firstname",
-              "lastname",
-              "emails.email",
-              "content",
+          "bool": {
+            "should": [
+              {
+                "bool": {
+                  "must": [
+                    {
+                      "term": {
+                        "excluded": false,
+                      },
+                    },
+                    {
+                      "multi_match": {
+                        "query": "lorem",
+                        "fields": [
+                          "firstname",
+                          "lastname",
+                          "emails.email",
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+              {
+                "multi_match": {
+                  "query": "lorem",
+                  "fields": [
+                    "content",
+                  ],
+                },
+              },
             ],
           },
-        #     },
-        #   ],
-        # },
         },
       }.as_json
     end
