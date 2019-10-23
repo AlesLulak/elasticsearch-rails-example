@@ -3,7 +3,9 @@ Rails.application.routes.draw do
 
   resources :persons, except: :show, path: "" do
     patch "archive", on: :member
-    resources :emails
+    resources :emails do
+      resources :comments
+    end
   end
 
   get "search", to: "search#search"

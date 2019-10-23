@@ -1,0 +1,11 @@
+<%= form_for([@person, email, email.comments.new], class: "form-inline") do |f| %>
+  <div class="form-row mb-2">
+    <div class="col-12">
+      <%= f.text_area :content, required: true, class: "form-control" %>
+    </div>
+    <div class="col text-center">
+      <%= f.submit "Post comment", class: "btn btn-outline-info mt-2" %>
+    </div>
+  </div>
+<% end %>
+<hr>

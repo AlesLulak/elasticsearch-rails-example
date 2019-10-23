@@ -27,49 +27,51 @@
 <div class="row mb-4">
   <div class="col">
     <div class="card h-100">
-        <div class="card-body">
-          <%= render  "form_email" %>
-            <table class="table table-sm">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Emails</th>
-                  <th>&nbsp;</th>
-                  <th>&nbsp;</th>
+      <div class="card-body">
+        <%= render "emails/form" %>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Emails</th>
+              <th>&nbsp;</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @person.emails.order('id ASC').each_with_index do |e, i| %>
+              <% if e.id %>
+                <tr data-id="<%= e.id %>" class="bg-light">
+                  <td class="font-weight-bold">
+                    <%= i+1 %>
+                  </td>
+                  <td>
+                    <%= e.email %>
+                  </td>
+                  <td>
+                    <%= link_to  "Delete", person_email_path(id: e.id.to_i, person_id: @person.id), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger"  %>
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                <% @person.emails.each_with_index do |e, i| %>
-                  <% if e.id %>
-                    <tr data-id="<%= e.id %>" class="bg-light">
-                      <td>
-                        <%= i+1 %>
-                      </td>
-                      <td>
-                        <%= e.email %>
-                      </td>
-                      <td>
-                        <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#email-<%= e.id %>" aria-expanded="false" aria-controls="<%= e.id %>">
-                          Comments
-                        </button>
-                      </td>
-                      <td>
-                        <%= link_to  "Delete", person_email_path(id: e.id.to_i, person_id: @person.id), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger"  %>
-                      </td>
-                    </tr>
-                    <tr class="">
-                      <td colspan="4" class="p-0">
-                        <div class="collapse ml-5 mr-5 mb-2 mt-2" id="email-<%= e.id %>">
-                          <ul class="list-group">
-                            <li class="list-group-item">Test</li>
-                          </ul>
-                        </div>
-                      </td>
-                    </tr>
-                  <% end %>    
-                <% end %>
-              </tbody>
-          </table>
+                <tr class="">
+                  <td colspan="3" class="p-0">
+                    <div class="bg-light ml-5 mr-5 p-3 mb-4 border-bottom border-left border-right">
+                      <%= render partial: "comments/form", locals: { email: e } %>
+                      <ul class="list-group">
+                        <% e.comments.each_with_index do |c,i| %>  
+                          <% if c.id %>
+                            <li class="list-group-item">
+                              <span class="font-weight-bold mr-3 float-left h-100">#<%= i+1 %></span>
+                              <span><%= c.content %></span>
+                            </li> 
+                          <% end %>
+                        <% end %>
+                      </ul>
+                    </div>
+                  </td>
+                </tr>
+              <% end %>    
+            <% end %>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
