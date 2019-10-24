@@ -41,35 +41,6 @@ class Person < ActiveRecord::Base
     end
   end
 
-  # def self.find_by_fulltext(q)
-  # query = {
-  #   "query": {
-  #     "bool": {
-  #       "must": [
-  #         {
-  #           "term": {
-  #             "excluded": false,
-  #           },
-  #         },
-  #         {
-  #           "multi_match": {
-  #             "query": q,
-  #             "fields": [
-  #               "firstname",
-  #               "lastname",
-  #               "emails.email",
-  #             ],
-  #           },
-  #         },
-  #       ],
-  #     },
-  #   },
-  # }.as_json
-  #   result = Person.search(query)
-  #   Person.where(id: result.results.map(&:_id)).limit(5).order("firstname ASC")
-  # end
-
-  # Set separately to call also for json
   def self.index_json
     {
       only: [:firstname, :lastname, :excluded, :emails],

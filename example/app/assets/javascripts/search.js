@@ -10,7 +10,11 @@ $(function() {
         success: function (r) {
           $("#results ul").empty();
           r.forEach(e => {
-            $("#results ul").append(`<li class="list-group-item list-group-item-action list-group-item-secondary"> ${e.firstname} ${e.lastname} </li>`)
+            if (e.type == "comment") {
+              $("#results ul").append(`<li class="list-group-item list-group-item-action list-group-item-secondary"><i class="fa fa-comment-o fa-fix-width mr-2" aria-hidden="true"></i> ${e.highlight} </li>`)
+            } else {
+              $("#results ul").append(`<li class="list-group-item list-group-item-action list-group-item-secondary"><i class="fa fa-user-o fa-fix-width mr-2" aria-hidden="true"></i> ${e.name} </li>`)
+            }
           });
         },
         error: function (e) {
@@ -18,9 +22,5 @@ $(function() {
         }
       });
     }, delay);
-    
-  });
-
-  console.log('Autocompleate loaded');
-  
+  });  
 });

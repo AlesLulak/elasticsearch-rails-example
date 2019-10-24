@@ -28,14 +28,14 @@
   <% @results.each do |result| %>
     <li class="list-group-item list-group-item-action">
       <% if result[:type] == "comment" %>
-        <% email = Comment.find(result[:id]).email %>
-          <%= link_to "Comment", edit_person_path(email.person, :anchor => "comment-#{result[:id]}") %> for email: <%= link_to  email.email, edit_person_path(email.person, :anchor => "email-#{email.id}") %> under person: <%= link_to "#{email.person.firstname} #{email.person.lastname}", edit_person_path(email.person) %>
+        <big><i class="fa fa-comment-o fa-fix-width mr-2" aria-hidden="true"></i></big> 
+        <%= link_to "Comment", edit_person_path(result[:person_id], :anchor => "comment-#{result[:id]}") %> for email: <%= link_to result[:email], edit_person_path(result[:person_id], :anchor => "email-#{result[:email_id]}") %> under person: <%= link_to result[:person], edit_person_path(result[:person_id]) %>
         <p class="text-monospace highlight"> 
           <%= raw result[:highlight] %> 
         </p>
       <% else %>
-        <% person = Person.find(result[:id]) %>
-        Person: <%= link_to "#{person.firstname} #{person.lastname}", edit_person_path(person) %>
+        <big><i class="fa fa-user-o fa-fix-width mr-2" aria-hidden="true"></i></big> 
+        <%= link_to result[:name], edit_person_path(result[:id]) %>
       <% end %>
     </li>
   <% end %>
