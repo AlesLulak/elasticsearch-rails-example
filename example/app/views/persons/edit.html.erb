@@ -1,6 +1,6 @@
 <h1>Person</h1>
 
-<%= link_to "List", persons_path, class: "btn btn-warning mb-2" %>
+<%= link_to "List", persons_path, class: "btn btn-warning mb-3" %>
 
 <div class="row mb-4">
   <div class="col-6"> 
@@ -29,49 +29,28 @@
     <div class="card h-100">
       <div class="card-body">
         <%= render "emails/form" %>
-        <table class="table">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Emails</th>
-              <th>&nbsp;</th>
-            </tr>
-          </thead>
-          <tbody>
+        <ul class="list-group">
             <% @person.emails.order('id ASC').each_with_index do |e, i| %>
-              <% if e.id %>
-                <tr class="bg-light" id="email-<%= e.id %>">
-                  <td class="font-weight-bold">
-                    <%= i+1 %>
-                  </td>
-                  <td>
-                    <%= e.email %>
-                  </td>
-                  <td>
-                    <%= link_to  "Delete", person_email_path(id: e.id.to_i, person_id: @person.id), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger"  %>
-                  </td>
-                </tr>
-                <tr class="">
-                  <td colspan="3" class="p-0">
-                    <div class="bg-light ml-5 mr-5 p-3 mb-4 border-bottom border-left border-right">
-                      <%= render partial: "comments/form", locals: { email: e } %>
-                      <ul class="list-group">
-                        <% e.comments.each_with_index do |c,i| %>  
-                          <% if c.id %>
-                            <li class="list-group-item" id="comment-<%= c.id %>">
-                              <span class="font-weight-bold mr-3 float-left h-100">#<%= i+1 %></span>
-                              <span><%= c.content %></span>
-                            </li> 
-                          <% end %>
-                        <% end %>
-                      </ul>
-                    </div>
-                  </td>
-                </tr>
+            <% if e.id %>
+            <li class="list-group-item list-group-item-action">
+                <p><big><i class="fa fa-envelope-o mr-3" aria-hidden="true"></i></big><%= e.email %>  <%= link_to  "Delete", person_email_path(id: e.id.to_i, person_id: @person.id), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger"  %></p> 
+                <ul class="list-group">
+                  <% e.comments.each_with_index do |c,i| %>  
+                    <% if c.id %>
+                      <li class="list-group-item" id="comment-<%= c.id %>">
+                        <span class="font-weight-bold mr-1 float-left h-100">#<%= i+1 %></span>
+                        <span><%= c.content %></span><br />
+                        <small class="mr-3 text-muted"><%= c.created_at %></small>
+                      </li> 
+                    <% end %>
+                  <% end %>
+                </ul>     
+                <hr>     
+                <%= render partial: "comments/form", locals: { email: e } %>
               <% end %>    
-            <% end %>
-          </tbody>
-        </table>
+           </li>
+          <% end %>
+        </ul>
       </div>
     </div>
   </div>
