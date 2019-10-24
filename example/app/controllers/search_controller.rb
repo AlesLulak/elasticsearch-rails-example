@@ -27,11 +27,11 @@ class SearchController < ApplicationController
                 },
               },
               {
-                "multi_match": {
-                  "query": q,
-                  "fields": [
-                    "content",
-                  ],
+                "match": {
+                  "content": {
+                    "query": q,
+                    "boost": 1,
+                  },
                 },
               },
             ],

@@ -29,7 +29,7 @@
     <li class="list-group-item list-group-item-action">
       <% if result[:type] == "comment" %>
         <% email = Comment.find(result[:id]).email %>
-        Comment:  <%= link_to result[:id], edit_person_path(email.person, :anchor => "comment-#{result[:id]}") %> for email: <%= link_to  email.email, edit_person_path(email.person, :anchor => "email-#{email.id}") %> under person: <%= link_to "#{email.person.firstname} #{email.person.lastname}", edit_person_path(email.person) %>
+          <%= link_to "Comment", edit_person_path(email.person, :anchor => "comment-#{result[:id]}") %> for email: <%= link_to  email.email, edit_person_path(email.person, :anchor => "email-#{email.id}") %> under person: <%= link_to "#{email.person.firstname} #{email.person.lastname}", edit_person_path(email.person) %>
         <p class="text-monospace highlight"> 
           <%= raw result[:highlight] %> 
         </p>
