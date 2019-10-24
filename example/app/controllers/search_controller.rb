@@ -15,7 +15,7 @@ class SearchController < ApplicationController
                     },
                     {
                       "multi_match": {
-                        "query": "lorem",
+                        "query": q,
                         "fields": [
                           "firstname",
                           "lastname",
@@ -28,7 +28,7 @@ class SearchController < ApplicationController
               },
               {
                 "multi_match": {
-                  "query": "lorem",
+                  "query": q,
                   "fields": [
                     "content",
                   ],
