@@ -40,7 +40,7 @@
           <tbody>
             <% @person.emails.order('id ASC').each_with_index do |e, i| %>
               <% if e.id %>
-                <tr data-id="<%= e.id %>" class="bg-light">
+                <tr class="bg-light" id="email-<%= e.id %>">
                   <td class="font-weight-bold">
                     <%= i+1 %>
                   </td>
@@ -58,7 +58,7 @@
                       <ul class="list-group">
                         <% e.comments.each_with_index do |c,i| %>  
                           <% if c.id %>
-                            <li class="list-group-item">
+                            <li class="list-group-item" id="comment-<%= c.id %>">
                               <span class="font-weight-bold mr-3 float-left h-100">#<%= i+1 %></span>
                               <span><%= c.content %></span>
                             </li> 

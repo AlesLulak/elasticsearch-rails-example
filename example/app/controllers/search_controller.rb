@@ -37,10 +37,15 @@ class SearchController < ApplicationController
             ],
           },
         },
+        "highlight": {
+          "fields": {
+            "content": {},
+          },
+        },
       }.as_json
     end
 
-    @results = params[:q].nil? ? [] : Elasticsearch::Model.search(custom_query(params[:q]), [Person, Comment]).results.map { |r| [r._id, r._type] }
+    @results = params[:q].nil? ? [] : Elasticsearch::Model.search(custom_query(params[:q]), [Person, Comment]).results.to_a.map { |r| { type: r._type, id: r._id.to_i, highlight: (!r["highlight"].nil? ? r["highlight"].content[0] : nil) } }
 
     respond_to do |format|
       format.html
