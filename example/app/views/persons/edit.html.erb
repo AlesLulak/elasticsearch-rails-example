@@ -3,14 +3,14 @@
 <%= link_to "List", persons_path, class: "btn btn-warning mb-3" %>
 
 <div class="row mb-4">
-  <div class="col-6"> 
+  <div class="col-md-6"> 
     <div class="card h-100">
       <div class="card-body">
         <%= render partial: "form" %>
       </div>
     </div>
   </div>  
-  <div class="col-6">
+  <div class="col-md-6 mt-md-0 mt-4">
     <div class="card h-100">
       <div class="card-body">
         <h5 class="card-title">Other actions</h5>
@@ -32,12 +32,12 @@
         <ul class="list-group">
             <% @person.emails.order('id ASC').each_with_index do |e, i| %>
             <% if e.id %>
-            <li class="list-group-item list-group-item-action">
+            <li class="list-group-item list-group-item-action email" id="email-<%= e.id %>">
                 <p><big><i class="fa fa-envelope-o mr-3" aria-hidden="true"></i></big><%= e.email %>  <%= link_to  "Delete", person_email_path(id: e.id.to_i, person_id: @person.id), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger"  %></p> 
                 <ul class="list-group">
                   <% e.comments.each_with_index do |c,i| %>  
                     <% if c.id %>
-                      <li class="list-group-item" id="comment-<%= c.id %>">
+                      <li class="list-group-item comment" id="comment-<%= c.id %>">
                         <span class="font-weight-bold mr-1 float-left h-100">#<%= i+1 %></span>
                         <span><%= c.content %></span><br />
                         <small class="mr-3 text-muted"><%= c.created_at %></small>

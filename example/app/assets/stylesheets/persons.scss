@@ -5,3 +5,11 @@
 .bg-excluded {
   background-color: #f5c6cb !important;
 }
+
+.comment:target {
+  background: chartreuse;
+}
+
+.email:target {
+  background: chartreuse;
+}

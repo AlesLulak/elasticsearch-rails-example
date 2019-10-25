@@ -6,16 +6,16 @@
 <ul class="list-group mt-3 mb-3">
   <li class="list-group-item font-weight-bold">
     <div class="row">
-      <div class="col-md-2">
+      <div class="col-xl-2">
         <span>Firstname</span>
       </div>
-      <div class="col-md-2">
+      <div class="col-xl-2">
         <span>Lastname</span>
       </div>
-      <div class="col-md-4">
+      <div class="col-xl-4">
         <span>Emails</span>
       </div>
-      <div class="col-md-3">
+      <div class="col-xl-3">
         <span>Actions</span>
       </div>
     </div>
@@ -23,18 +23,18 @@
   <% @persons.each do |person| %>
     <li class="list-group-item list-group-item-action <%= 'bg-excluded' if person.excluded %>">
       <div class="row">
-        <div class="col-md-2">
+        <div class="col-xl-2">
           <span><%= person.firstname %></span>
         </div>
-        <div class="col-md-2">
+        <div class="col-xl-2">
           <span><%= person.lastname %></span>
         </div>
-        <div class="col-md-4">
+        <div class="col-xl-4">
           <% person.emails.each do |e| %>
               <%= e.email %> <br /> 
           <% end %>
         </div>
-        <div class="col-md-3">
+        <div class="col-xl-3">
           <div class="actions">
             <a href="<%= edit_person_path(person) %>" class="btn btn-success">Edit</a>
             <% if person.excluded %>
