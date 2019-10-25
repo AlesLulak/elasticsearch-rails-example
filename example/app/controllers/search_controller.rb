@@ -16,9 +16,10 @@ class SearchController < ApplicationController
                     {
                       "multi_match": {
                         "query": q,
+                        "boost": 3,
                         "fields": [
-                          "firstname^2",
-                          "lastname^2",
+                          "firstname",
+                          "lastname",
                           "emails.email",
                         ],
                       },
