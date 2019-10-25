@@ -17,8 +17,8 @@ class SearchController < ApplicationController
                       "multi_match": {
                         "query": q,
                         "fields": [
-                          "firstname",
-                          "lastname",
+                          "firstname^2",
+                          "lastname^2",
                           "emails.email",
                         ],
                       },
