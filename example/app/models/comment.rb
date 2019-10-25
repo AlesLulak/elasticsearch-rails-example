@@ -22,7 +22,7 @@ class Comment < ActiveRecord::Base
   # Set separately to call also for json
   def self.index_json
     {
-      only: [:content],
+      only: [:content, :email],
     }
   end
 

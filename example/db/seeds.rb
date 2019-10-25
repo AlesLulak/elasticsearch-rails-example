@@ -18,4 +18,10 @@
   3.times do
     person.emails.create(email: Faker::Internet.email(name: "#{name} #{last}", separators: "."))
   end
+
+  person.emails.each do |e|
+    5.times do
+      e.comments.create(content: Faker::Quote.most_interesting_man_in_the_world)
+    end
+  end
 end

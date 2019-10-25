@@ -46,7 +46,19 @@ class SearchController < ApplicationController
     end
 
     # Search and return relevant data in hash
-    @results = params[:q].nil? ? [] : Elasticsearch::Model.search(custom_query(params[:q]), [Person, Comment]).results.map do |r|
+    @results = params[:q].nil? ? [] : Elasticsearch::Model.search(custom_query(params[:q]), [Person, Comment]).results
+
+    # get all comments' ids for include
+    comments_ids = []
+    @results.to_a.each do |res|
+      if res._type = "commnets"
+        comments_ids << res._id.to_i
+      end
+    end
+
+    comments = Comment.includes(email: [:person]).where(id: comments_ids).to_a
+
+    @results = @results.map do |r|
       case r._type
       when "person"
         {
@@ -55,15 +67,13 @@ class SearchController < ApplicationController
           name: "#{r._source.firstname} #{r._source.lastname}",
         }
       when "comment"
-        # Needs parent data to be extracted from Postgresql
-        comment = Comment.find(r._id)
         {
           type: r._type,
           id: r._id,
-          email: comment.email.email,
-          email_id: comment.email.id,
-          person: "#{comment.email.person.firstname} #{comment.email.person.lastname}",
-          person_id: comment.email.person.id,
+          email: comments.find { |c| c.id == r._id.to_i }.email.email,
+          email_id: comments.find { |c| c.id == r._id.to_i }.email.id,
+          person: "#{comments.find { |c| c.id == r._id.to_i }.email.person.firstname} #{comments.find { |c| c.id == r._id.to_i }.email.person.lastname}",
+          person_id: comments.find { |c| c.id == r._id.to_i }.email.person.id,
           highlight: r["highlight"].content[0],
         }
       end
