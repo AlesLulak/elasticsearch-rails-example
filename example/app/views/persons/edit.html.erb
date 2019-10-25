@@ -32,7 +32,7 @@
         <ul class="list-group">
             <% @person.emails.order('id ASC').each_with_index do |e, i| %>
             <% if e.id %>
-            <li class="list-group-item list-group-item-action email" id="email-<%= e.id %>">
+            <li class="list-group-item email" id="email-<%= e.id %>">
                 <p><big><i class="fa fa-envelope-o mr-3" aria-hidden="true"></i></big><%= e.email %>  <%= link_to  "Delete", person_email_path(id: e.id.to_i, person_id: @person.id), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger"  %></p> 
                 <ul class="list-group">
                   <% e.comments.each_with_index do |c,i| %>  
