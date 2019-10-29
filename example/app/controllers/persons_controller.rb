@@ -1,6 +1,6 @@
 class PersonsController < ApplicationController
   def index
-    @persons = Person.order(:firstname)
+    @persons = Person.includes(:emails).order(:firstname)
   end
 
   def new
@@ -34,7 +34,7 @@ class PersonsController < ApplicationController
   end
 
   def edit
-    @person = Person.find(params[:id])
+    @person = Person.includes(emails: [:comments]).order("comments.created_at ASC").find(params[:id])
     @email = @person.emails.new
   end
 
