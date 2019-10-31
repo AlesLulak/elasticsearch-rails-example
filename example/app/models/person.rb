@@ -9,6 +9,8 @@ class Person < ActiveRecord::Base
   validates :firstname, presence: true
   validates :lastname, presence: true
 
+  scope :excluded, -> { where(excluded: true) }
+
   settings "analysis": {
     "filter": {
       "autocomplete_filter": {
@@ -52,5 +54,9 @@ class Person < ActiveRecord::Base
 
   def as_indexed_json(options = nil)
     self.as_json(Person.index_json)
+  end
+
+  def fullname
+    "#{self.firstname} #{self.lastname}"
   end
 end
