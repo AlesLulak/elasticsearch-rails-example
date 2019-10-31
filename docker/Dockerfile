@@ -1,6 +1,6 @@
 FROM ruby:2.4.4
-COPY Gemfile* ./
 WORKDIR /root
+COPY Gemfile* ./
 
 RUN bundle install
 
