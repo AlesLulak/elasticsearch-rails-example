@@ -8,7 +8,9 @@ class PersonArchivingTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     assert_not person.excluded, "Default excluded is false"
-    patch_via_redirect "/#{person.id}/archive/"
+    patch "/#{person.id}/archive/"
+    follow_redirect!
+
     assert_equal "/", path
 
     person.reload
@@ -19,11 +21,9 @@ class PersonArchivingTest < ActionDispatch::IntegrationTest
     assert flash[:notice].match(/#{person.firstname} was excluded./)
     assert_select ".alert", text: "#{person.firstname} was excluded."
 
-    # For some reason, I need to get again, otherwise alert is wrong
-    get "/"
-
     # Include back
-    patch_via_redirect "/#{person.id}/archive/"
+    patch "/#{person.id}/archive/"
+    follow_redirect!
     assert_equal "/", path
 
     person.reload
