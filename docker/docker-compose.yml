@@ -45,6 +45,14 @@ services:
     ports:
     - 5601:5601
 
+  mongodb:
+    image: mongo:2.4.14
+    restart: always
+    volumes: 
+      - mongodb:/data/db
+    ports:
+    - 27017:27017
+
   redis:
     image: redis:5.0.6
     restart: always
@@ -55,3 +63,4 @@ services:
 volumes:
   db:
   esdata01:
+  mongodb:
