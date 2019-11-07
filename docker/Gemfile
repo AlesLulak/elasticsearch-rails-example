@@ -30,6 +30,9 @@ gem "elasticsearch", "5.0.4"
 gem 'redis'
 gem 'redis-rails'
 
+gem 'mongo', '2.4.1'
+# gem 'mongoid', '~> 5.4'
+# gem 'bson', '4.6'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
