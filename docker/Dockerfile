@@ -1,4 +1,5 @@
-FROM ruby:2.4.4
+FROM ruby:2.3.8 
+# Note: changed to ruby 2.3.8  because of Mongo
 WORKDIR /root
 COPY Gemfile* ./
 
