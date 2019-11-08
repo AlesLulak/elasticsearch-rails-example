@@ -35,6 +35,12 @@ class PersonsController < ApplicationController
 
   def edit
     @person = Person.includes(emails: [:comments]).order("comments.created_at ASC").find(params[:id])
+   
+    @mongo_emails = {}
+    @person.emails.each do |e|
+      @mongo_emails[e.email] = EmailMongo.find_by(address: e.email).count
+    end
+
     @email = @person.emails.new
   end
 
