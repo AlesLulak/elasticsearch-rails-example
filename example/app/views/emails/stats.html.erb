@@ -16,13 +16,13 @@
       <li class="list-group-item font-weight-bold bg-info text-white">
         <div class="row">
           <div class="col">
-            <a href="<%= (params[:email] == "desc" || params[:email].nil?) ? stats_path(email: "asc") : stats_path(email: "desc") %>" class="text-white">
+            <a href="<%= (params[:email] == "desc" || params[:email].nil?) ? stats_path(email: "asc", domain_address: params[:domain_address], domain_count: params[:domain_count]) : stats_path(email: "desc", domain_address: params[:domain_address], domain_count: params[:domain_count]) %>" class="text-white">
               Email
               <i class="fa <%= @email_icon %>" aria-hidden="true"></i>
             </a>
           </div>
           <div class="col">
-            <a href="<%= (params[:email_count] == "desc" || params[:email_count].nil?) ? stats_path(email_count: "asc") : stats_path(email_count: "desc") %>" class="text-white">
+            <a href="<%= (params[:email_count] == "desc" || params[:email_count].nil?) ? stats_path(email_count: "asc", domain_address: params[:domain_address], domain_count: params[:domain_count]) : stats_path(email_count: "desc", domain_address: params[:domain_address], domain_count: params[:domain_count]) %>" class="text-white">
               Count (<%= @sum %>)
               <i class="fa <%= @email_count_icon %>" aria-hidden="true"></i>
             </a>
@@ -52,13 +52,13 @@
         <li class="list-group-item font-weight-bold bg-info text-white">
           <div class="row">
             <div class="col">
-              <a href="<%= (params[:domain_address] == "desc" || params[:domain_address].nil?) ? stats_path(domain_address: "asc") : stats_path(domain_address: "desc") %>" class="text-white">
+              <a href="<%= (params[:domain_address] == "desc" || params[:domain_address].nil?) ? stats_path(domain_address: "asc", email: params[:email], email_count: params[:email_count]) : stats_path(domain_address: "desc", email: params[:email], email_count: params[:email_count]) %>" class="text-white">
                 Domain
                 <i class="fa <%= @domain_icon %>" aria-hidden="true"></i>
               </a>
             </div>
             <div class="col">
-              <a href="<%= (params[:domain_count] == "desc" || params[:domain_count].nil?) ? stats_path(domain_count: "asc") : stats_path(domain_count: "desc") %>" class="text-white">
+              <a href="<%= (params[:domain_count] == "desc" || params[:domain_count].nil?) ? stats_path(domain_count: "asc", email: params[:email], email_count: params[:email_count]) : stats_path(domain_count: "desc", email: params[:email], email_count: params[:email_count]) %>" class="text-white">
                 Count (<%= @sum %>)
                 <i class="fa <%= @domain_count_icon %>" aria-hidden="true"></i>
               </a>
