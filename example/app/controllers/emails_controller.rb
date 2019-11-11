@@ -24,26 +24,26 @@ class EmailsController < ApplicationController
     @email_icon = "fa-sort"
     @email_count_icon = "fa-sort"
     if params[:email]
-      @emails = EmailMongo.where(:count.gt => 0).order_by("address": params[:email])
+      @emails = EmailMongo.has_some.order_by("address": params[:email])
       @email_icon = params[:email] == "asc" ? "fa-sort-up" : "fa-sort-down"
     elsif params[:email_count]
-      @emails = EmailMongo.where(:count.gt => 0).order_by("count": params[:email_count])
+      @emails = EmailMongo.has_some.order_by("count": params[:email_count])
       @email_count_icon = params[:email_count] == "asc" ? "fa-sort-up" : "fa-sort-down"
     else
-      @emails = EmailMongo.where(:count.gt => 0)
+      @emails = EmailMongo.has_some
     end
 
     # domain filter
     @domain_icon = "fa-sort"
     @domain_count_icon = "fa-sort"
     if params[:domain_address]
-      @domains = DomainMongo.where(:count.gt => 0).order_by("domain": params[:domain_address])
+      @domains = DomainMongo.has_some.order_by("domain": params[:domain_address])
       @domain_icon = params[:domain_address] == "asc" ? "fa-sort-up" : "fa-sort-down"
     elsif params[:domain_count]
-      @domains = DomainMongo.where(:count.gt => 0).order_by("count": params[:domain_count])
+      @domains = DomainMongo.has_some.order_by("count": params[:domain_count])
       @domain_count_icon = params[:domain_count] == "asc" ? "fa-sort-up" : "fa-sort-down"
     else
-      @domains = DomainMongo.where(:count.gt => 0)
+      @domains = DomainMongo.has_some
     end
 
     @sum = @domains.sum {|h| h[:count] }
