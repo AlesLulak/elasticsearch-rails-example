@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     patch "archive", on: :member
     resources :emails do
       patch "/add_sent", to: "emails#add_sent", on: :member 
-      resources :comments
+      resources :comments, only: [:create]
     end
   end
 

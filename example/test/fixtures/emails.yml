@@ -1,9 +1,8 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  person_id: 1
-  email: MyString
-
-two:
-  person_id: 1
-  email: MyString
+<% 10.times do |i| %>
+  e<%= i %>:
+    id: <%= i %>
+    person_id: <%= i %> 
+    email: <%= Faker::Internet.email %>
+<% end %>

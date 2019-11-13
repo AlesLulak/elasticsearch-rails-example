@@ -28,11 +28,7 @@ class PersonsController < ApplicationController
       end
     end
   end
-
-  def show
-    @person = Person.find(params[:id])
-  end
-
+  
   def edit
     @person = Person.includes(emails: [:comments]).order("comments.created_at ASC").find(params[:id])
    

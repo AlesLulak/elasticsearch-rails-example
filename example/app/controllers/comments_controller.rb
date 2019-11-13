@@ -1,7 +1,4 @@
 class CommentsController < ApplicationController
-  def new
-  end
-
   def create
     @email = Email.find(params[:email_id])
     @comment = @email.comments.new(content: params[:comment][:content])
