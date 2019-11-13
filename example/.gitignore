@@ -12,6 +12,8 @@
 !/log/.keep
 /tmp
 
+/coverage
+
 .bash_history
 .byebug_history
 
