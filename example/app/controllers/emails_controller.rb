@@ -46,6 +46,7 @@ class EmailsController < ApplicationController
       @domains = DomainMongo.has_some
     end
 
+    # Sum of clicks
     @sum = @domains.sum {|h| h[:count] }
   end
 
