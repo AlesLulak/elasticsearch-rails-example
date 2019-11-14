@@ -18,12 +18,12 @@ class PersonsControllerTest < ActionController::TestCase
     end
   end
 
-  # test "person edit should get" do
-  #   get :edit, { 'id': persons("p#{rand 10}".to_sym).id }
-  #   # needs mongo data
+  test "person edit should get" do
+    get :edit, { 'id': persons("p10".to_sym).id }
+    # needs mongo data
 
-  #   assert_response :success   
-  # end
+    assert_response :success   
+  end
 
 
   # test "person edit should contain delete button in other actions" do

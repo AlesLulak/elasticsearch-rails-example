@@ -7,3 +7,10 @@
     lastname: <%= Faker::Name.last_name %>
     excluded: false
 <% end %>
+
+# not random
+  p10:
+    id: 10
+    firstname: FirstMongo
+    lastname: LastMongo
+    excluded: false

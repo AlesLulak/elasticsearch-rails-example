@@ -4,3 +4,9 @@ development:
       database: mydb
       hosts:
         - mongodb:27017
+test:
+  clients:
+    default:
+      database: mydb_test
+      hosts:
+        - mongodb:27017
